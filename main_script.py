@@ -5,12 +5,13 @@ from typing import List, Union, Dict, Tuple
 
 def run_dna_rna_tools(*args: str) -> Union[str, List[str]]:
     """
-    Выполняет указанную операцию над переданными последовательностями.
-    Args:произвольное количество строк с последовательностями,
-    последним аргументом передается название процедуры
-    (transcribe, reverse, complement, reverse_complement, gc_cont, DNA_or_RNA)
-    Return: если передана одна последовательность — str,
-            если несколько последовательностей — list[str, str].
+    Executes the specified operation on the given sequences.
+    Args: Arbitrary number of strings with sequences,
+    the last argument should be the operation name
+    (transcribe, reverse, complement, reverse_complement, gc_cont, DNA_or_RNA).
+    Returns:
+    If one sequence is passed — str,
+    If multiple sequences are passed — list[str, str].
     """
     dl = len(args)
     Fun = args[dl - 1]
@@ -41,34 +42,35 @@ def filter_fastq(
     quality_threshold: float = 0
 ) -> Dict[str, Tuple[str, str]]:
     """
-    Фильтрация последовательностей по GC-составу, длине и среднему качеству.
+    Filters sequences by GC content, length, and average quality.
     Args:
-    seqs: словарь последовательностей, где ключ — имя,
-    а значение — кортеж (последовательность, качество)
-    gc_bounds: интервал GC-состава в процентах
-    length_bounds: интервал длины последовательностей
-    quality_threshold: пороговое значение среднего качества рида
-    Return: отфильтрованный словарь сиквенсов
+    seqs: Dictionary of sequences, where the key is the sequence name,
+          and the value is a tuple (sequence, quality)
+    gc_bounds: Range of GC content in percentage
+    length_bounds: Range of sequence lengths
+    quality_threshold: Minimum average read quality (Phred33 scale)
+    Returns:
+        Filtered dictionary of sequences that meet all criteria.
     """
     filtered_seqs = {}
-    # Приведение границ, если передано одно число
+    # Adjust boundaries if a single number is provided
     if isinstance(gc_bounds, (float, int)):
         gc_bounds = (0, gc_bounds)
     if isinstance(length_bounds, int):
         length_bounds = (0, length_bounds)
     for name, (sequence, quality) in seqs.items():
-        # Фильтр по длине
+        # Filter by length
         seq_length = len(sequence)
         if not (length_bounds[0] <= seq_length <= length_bounds[1]):
             continue
-        # Фильтр по GC-составу
+        # Filter by GC content
         gc_content = fi_fa.calculate_gc_content(sequence)
         if not (gc_bounds[0] <= gc_content <= gc_bounds[1]):
             continue
-        # Фильтр по среднему качеству
+        # Filter by average quality
         avg_quality = fi_fa.calculate_average_quality(quality)
         if avg_quality < quality_threshold:
             continue
-        # Если все условия соблюдены, добавляем последовательность в словарь
+        # If all conditions are met, add the sequence
         filtered_seqs[name] = (sequence, quality)
     return filtered_seqs

@@ -1,21 +1,20 @@
-
 def transcribe(sequence: str) -> str:
     """
-    Транискрипция со смысловой ДНК в РНК.
+    Transcribes the coding DNA sequence into RNA.
     """
     return sequence.replace('T', 'U').replace('t', 'u')
 
 
 def reverse(sequence: str) -> str:
     """
-    Возвращает перевёрнутую последовательность
+    Returns the reversed sequence.
     """
     return sequence[::-1]
 
 
 def complement(sequence: str) -> str:
     """
-    Возвращает комплементарную последовательность.
+    Returns the complementary sequence.
     """
     complement_map = str.maketrans('ATGCUatgcu', 'TACGAtacga')
     return sequence.translate(complement_map)
@@ -23,14 +22,14 @@ def complement(sequence: str) -> str:
 
 def reverse_complement(sequence: str) -> str:
     """
-    Возвращает комплементарную, перевёрнутую последовательность.
+    Returns the reverse complement of the sequence.
     """
     return reverse(complement(sequence))
 
 
 def gc_cont(sequence: str) -> float:
     """
-    Вычисляет процент содержания G и C в последовательности.
+    Calculates the GC content percentage in the sequence.
     """
     gc_count = sequence.upper().count('G') + sequence.upper().count('C')
     return (gc_count / len(sequence)) * 100
@@ -38,11 +37,11 @@ def gc_cont(sequence: str) -> float:
 
 def DNA_or_RNA(sequence: str) -> str:
     """
-    Определяет, является ли последовательность ДНК или РНК.
+    Determines whether the sequence is DNA or RNA.
     """
     if ('U' in sequence.upper()) == ('T' in sequence.upper()):
-        return 'Не знаю'
+        return 'Unknown'
     elif 'U' in sequence.upper():
-        return 'РНК'
+        return 'RNA'
     elif 'T' in sequence.upper():
-        return 'ДНК'
+        return 'DNA'
