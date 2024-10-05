@@ -1,6 +1,6 @@
 # DNA/RNA and FASTQ Filtering — A Simple Tool for Working with Sequences
 
-Welcome to **DNA/RNA Tools** — a set of tools for working with nucleic acid sequences and filtering data from fastq files. This project is designed for easy handling, analysis, and filtering of data using Python.
+Welcome to **DNA/RNA Tools** — a set of tools for working with nucleic acid sequences and filtering data from fastq files. This project is designed for easy handling, analysis, and filtering of data.
 
 ## Installation and Usage
 
