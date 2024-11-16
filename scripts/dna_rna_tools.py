@@ -35,7 +35,7 @@ def gc_cont(sequence: str) -> float:
     return (gc_count / len(sequence)) * 100
 
 
-def DNA_or_RNA(sequence: str) -> str:
+def dna_or_rna(sequence: str) -> str:
     """
     Determines whether the sequence is DNA or RNA.
     """
